@@ -134,13 +134,6 @@ Authorization enforced using **TaskPolicy**.
 - Element Plus notifications
 - Dashboard with computed stats & charts
 
-### Edit Mode Logic
-- Dynamic routing (`[id].vue`)
-- Form state separated from derived data
-- Date normalization for inputs
-
----
-
 ## 📊 Dashboard Statistics
 
 Computed from task list:
@@ -294,11 +287,3 @@ Or during initial setup:
 ```bash
 php artisan migrate --seed
 ```
-
-### Why This Exists
-
-- Validate **role-based authorization**
-- Assign tasks to users
-- Speed up local development
-- Ensure consistent test data
-
