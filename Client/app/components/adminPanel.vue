@@ -1,110 +1,96 @@
 <template>
-  <aside class="sidebar">
-    <!-- Admin User -->
-    <div class="admin-card">
-      <img class="avatar" src="https://i.pravatar.cc/80" />
-      <h3>Admin User</h3>
-    </div>
+  <div class="min-h-screen flex justify-center">
+    <div class="w-[360px] space-y-4">
 
-    <!-- Menu -->
-    <ul class="menu">
-      <li class="active">Tasks</li>
-      <li>Users <small>(Admin only)</small></li>
-      <li class="logout">Logout</li>
-    </ul>
+      <!-- Sidebar Card -->
+      <div class="bg-white rounded-xl shadow">
+        <div class="p-4 border-b font-semibold text-blue-800">
+          Admin User
+        </div>
 
-    <div class="additional-actions" >
+        <div class="p-4 space-y-3 text-sm">
+          <p class="font-semibold text-blue-600">Tasks</p>
+          <p class="text-gray-600">
+            Users <span class="text-xs">(Only visible to Admin)</span>
+          </p>
+          <p class="text-gray-600">Logout</p>
+        </div>
+
+        <!-- Circular Stats -->
+        <div class="p-4">
+          <div class="flex justify-between">
+            <CircleStat label="Total Tasks" :value="150" color="#3b82f6" />
+            <CircleStat label="Completed" :value="90" color="#10b981" />
+            <CircleStat label="Non-Tasks" :value="90" color="#6366f1" />
+          </div>
+          <p class="text-center text-sm mt-3 font-medium">
+            Monthly Task Completion
+          </p>
+        </div>
+
+        <!-- Small Chart -->
+        <div class="h-32 px-4 pb-4">
+          <Bar :data="chartData" :options="smallChartOptions" />
+        </div>
+      </div>
+
+      <div class="additional actions">
         <slot />
+      </div>
+      <!-- Large Chart -->
+      <div class="bg-slate-800 rounded-xl p-4 text-white shadow">
+        <p class="text-sm mb-3">Monthly Task Completion</p>
+        <div class="h-48">
+          <Bar :data="chartData" :options="darkChartOptions" />
+        </div>
+      </div>
+
     </div>
-    
-    <!-- Graph -->
-    <div class="chart-card">
-      <h4>Monthly Task Completion</h4>
-      <Bar :data="chartData" :options="chartOptions" />
-    </div>
-  </aside>
+  </div>
 </template>
 
 <script setup>
-import { Bar } from 'vue-chartjs'
-import {
-  Chart as ChartJS,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-} from 'chart.js'
-
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip)
+import { Bar } from "vue-chartjs";
+import CircleStat from "./CircleStat.vue";
 
 const chartData = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+  labels: ["Jan", "Feb", "Mar", "Apr", "May"],
   datasets: [
     {
-      label: 'Completed Tasks',
-      data: [30, 60, 45, 80, 55],
-      backgroundColor: '#3b82f6',
+      data: [10, 120, 140, 40, 130],
+      backgroundColor: "#3b82f6",
       borderRadius: 6,
     },
   ],
-}
+};
 
-const chartOptions = {
+const smallChartOptions = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: { display: false },
   },
   scales: {
-    y: { beginAtZero: true },
+    x: { grid: { display: false } },
+    y: { display: false },
   },
-}
+};
+
+const darkChartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { display: false },
+  },
+  scales: {
+    x: {
+      ticks: { color: "#fff" },
+      grid: { display: false },
+    },
+    y: {
+      ticks: { color: "#fff" },
+      grid: { color: "#334155" },
+    },
+  },
+};
 </script>
-
-<style scoped>
-.sidebar {
-  width: 300px;
-  background: #0f172a;
-  color: #fff;
-  padding: 16px;
-  border-radius: 14px;
-}
-
-.admin-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-}
-
-.menu {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 24px;
-}
-
-.menu li {
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.menu li.active {
-  background: #2563eb;
-}
-
-.menu li.logout {
-  color: #f87171;
-}
-
-.chart-card {
-  background: #020617;
-  padding: 12px;
-  border-radius: 12px;
-}
-</style>

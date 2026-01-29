@@ -3,10 +3,10 @@
     <!-- Header -->
     <header class="header">
       <div class="header-left">
-        <h1>Edit Task</h1>
+        <h1>{{ taskId ? "Edit Task" : "Add Task" }}</h1>
       </div>
 
-      <button class="btn-primary">+ New Task</button>
+      <button class="btn-primary" v-if="taskId">+ New Task</button>
     </header>
 
     <!-- Filters -->
@@ -65,20 +65,18 @@
         <!-- Due Date -->
         <div class="section">
           <label>Due Date</label>
-          <input class="input" type="date" v-model="task.dueDate" />
+          <input class="input" type="date" v-model="task.due_date" />
         </div>
 
         <!-- Assign To -->
         <div class="section">
           <label>Assign To</label>
-          <select class="input" v-model="task.assignee">
-            <option>Samy Lerton</option>
-            <option>Jane Doe</option>
-            <option>Admin User</option>
+          <select class="input" v-model="task.assigned_to">
+            <option v-for="user in filteredUsers" :key="user.id" :value="user.id">{{ user.name }}</option>
           </select>
         </div>
 
-        <button class="btn-save">Save Changes</button>
+        <button @click="createTask" class="btn-save">Save Changes</button>
       </main>
 
       <!-- Sidebar -->
@@ -90,22 +88,25 @@
 </template>
 <script setup lang="ts">
 import { reactive } from "vue";
+import useTask from "../composables/useTask";
 
 const { taskId } = defineProps<{
   taskId?: number;
 }>();
-const priorities = ["Low", "Medium", "High"];
 
-const task = reactive({
-  title: "Launch New Marketing Campaign",
-  description:
-    "Plan and execute a marketing campaign across channels with content creation and tracking.",
-  priority: "Low",
-  dueDate: "2024-12-31",
-  assignee: "Samy Lerton",
-});
+const {
+    filteredUsers,
+    users,
+    fetchUsers,
+    priorities,
+    task,
+    fetchTasks,
+    createTask
+} = useTask()
 
-const months = ["Jan", "Feb", "Mar", "Apr", "May"];
+await fetchUsers();
+
+task.assigned_to = filteredUsers.value[0].id
 </script>
 
 <style scoped>
@@ -206,13 +207,6 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May"];
   color: #fff;
 }
 
-/* Sidebar */
-.sidebar {
-  background: #fff;
-  border-radius: 20px;
-  padding: 20px;
-}
-
 .profile {
   text-align: center;
 }
@@ -282,5 +276,4 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May"];
   border: none;
   cursor: pointer;
 }
-
 </style>

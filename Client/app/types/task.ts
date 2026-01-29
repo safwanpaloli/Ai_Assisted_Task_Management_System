@@ -1,15 +1,17 @@
 
-export type TaskPriority = 'Low' | 'Medium' | 'High'
-export type TaskStatus = 'Todo' | 'InProgress' | 'Done'
+export type TaskPriority = 'low' | 'medium' | 'high'
+export type TaskStatus = 'pending' | 'in_progress' | 'completed'
 
 export interface Task {
-  id: number
-  title: string
-  description: string
-  priority: TaskPriority
-  status: TaskStatus
+  id: number,
+  title: string,
+  description: string,
+  priority: TaskPriority,
+  status: TaskStatus,
   due_date: Date,
-  assignee: string,
+  ai_summary: string,
+  ai_priority: TaskPriority,
+  assigned_to: string,
   createdAt: Date,
   updatedAt: Date
 }
