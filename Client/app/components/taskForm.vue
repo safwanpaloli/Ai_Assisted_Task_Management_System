@@ -16,9 +16,6 @@
         <option>Status</option>
       </select>
       <select>
-        <option>All Medtech</option>
-      </select>
-      <select>
         <option>Priority</option>
       </select>
     </div>
