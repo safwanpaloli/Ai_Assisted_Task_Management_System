@@ -1,11 +1,16 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 p-6">
+  <div
+    class="min-h-screen bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 p-6"
+  >
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-3xl font-bold text-white">Task List</h1>
-      <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+      <NuxtLink
+        to="/tasks/create"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+      >
         + New Task
-      </button>
+      </NuxtLink>
     </div>
 
     <!-- Filters -->
@@ -46,9 +51,7 @@
           </h2>
 
           <div class="flex gap-2 mb-3">
-            <span class="px-2 py-1 text-xs bg-gray-200 rounded">
-              Status
-            </span>
+            <span class="px-2 py-1 text-xs bg-gray-200 rounded"> Status </span>
             <span
               class="px-2 py-1 text-xs rounded text-white"
               :class="task.priority === 'High' ? 'bg-red-500' : 'bg-green-500'"
@@ -61,14 +64,10 @@
             {{ task.description }}
           </p>
 
-          <p class="text-sm text-gray-500">
-            Due: {{ task.due }}
-          </p>
+          <p class="text-sm text-gray-500">Due: {{ task.due }}</p>
 
           <div class="flex justify-end gap-2 mt-4">
-            <button class="px-3 py-1 text-sm bg-gray-200 rounded">
-              Edit
-            </button>
+            <button class="px-3 py-1 text-sm bg-gray-200 rounded">Edit</button>
             <button class="px-3 py-1 text-sm bg-blue-600 text-white rounded">
               View
             </button>
@@ -77,35 +76,8 @@
       </div>
 
       <!-- Sidebar -->
-      <div class="col-span-3 bg-white rounded-xl shadow p-4">
-        <div class="flex items-center gap-3 mb-6">
-          <img
-            src="https://i.pravatar.cc/40"
-            class="rounded-full"
-          />
-          <div>
-            <p class="font-semibold">Admin User</p>
-            <p class="text-sm text-gray-500">Administrator</p>
-          </div>
-        </div>
-
-        <ul class="space-y-3 mb-6">
-          <li class="text-blue-600 font-medium">Tasks</li>
-          <li class="text-gray-600">Users</li>
-          <li class="text-red-500">Logout</li>
-        </ul>
-
-        <div>
-          <h3 class="font-semibold mb-3">Monthly Task Completion</h3>
-          <div class="flex items-end gap-2 h-32">
-            <div
-              v-for="n in [40, 80, 60, 100]"
-              :key="n"
-              class="bg-blue-500 w-6 rounded"
-              :style="{ height: n + 'px' }"
-            ></div>
-          </div>
-        </div>
+      <div class="col-span-3">
+        <adminPanel />
       </div>
     </div>
   </div>
@@ -118,28 +90,28 @@ const tasks = [
     title: "Launch New Marketing",
     description: "Plan and execute marketing strategy",
     priority: "High",
-    due: "2024-12-31"
+    due: "2024-12-31",
   },
   {
     id: 2,
     title: "Develop API Campaign",
     description: "API integration for campaign module",
     priority: "High",
-    due: "2024-12-31"
+    due: "2024-12-31",
   },
   {
     id: 3,
     title: "Develop API Endpoints",
     description: "Create secure API endpoints",
     priority: "Low",
-    due: "2024-12-31"
+    due: "2024-12-31",
   },
   {
     id: 4,
     title: "Refactor API Endpoints",
     description: "Improve API performance",
     priority: "Low",
-    due: "2024-12-31"
-  }
-]
+    due: "2024-12-31",
+  },
+];
 </script>

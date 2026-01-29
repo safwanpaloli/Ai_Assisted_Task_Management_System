@@ -2,16 +2,25 @@
   <div class="app">
     <!-- Header -->
     <header class="header">
-      <h1>Edit Task</h1>
+      <div class="header-left">
+        <h1>Edit Task</h1>
+      </div>
+
       <button class="btn-primary">+ New Task</button>
     </header>
 
     <!-- Filters -->
     <div class="filters">
       <input type="text" placeholder="Search Filter Task" />
-      <select><option>Status</option></select>
-      <select><option>All Medtech</option></select>
-      <select><option>Priority</option></select>
+      <select>
+        <option>Status</option>
+      </select>
+      <select>
+        <option>All Medtech</option>
+      </select>
+      <select>
+        <option>Priority</option>
+      </select>
     </div>
 
     <div class="layout">
@@ -74,47 +83,29 @@
 
       <!-- Sidebar -->
       <aside class="sidebar">
-        <div class="profile">
-          <img src="https://i.pravatar.cc/80" />
-          <h4>Admin User</h4>
-        </div>
-
-        <nav class="menu">
-          <p class="active">Tasks</p>
-          <p>Users <span>(Admin only)</span></p>
-          <p>Logout</p>
-        </nav>
-
-        <div class="stats">
-          <h4>Monthly Task Completion</h4>
-          <div class="bars">
-            <div v-for="m in months" :key="m" class="bar"></div>
-          </div>
-        </div>
+        <adminPanel />
       </aside>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive } from "vue";
 
-const {
-    taskId
-} = defineProps<{
-    taskId?: number
-}>()
-const priorities = ['Low', 'Medium', 'High']
+const { taskId } = defineProps<{
+  taskId?: number;
+}>();
+const priorities = ["Low", "Medium", "High"];
 
 const task = reactive({
-  title: 'Launch New Marketing Campaign',
+  title: "Launch New Marketing Campaign",
   description:
-    'Plan and execute a marketing campaign across channels with content creation and tracking.',
-  priority: 'Low',
-  dueDate: '2024-12-31',
-  assignee: 'Samy Lerton',
-})
+    "Plan and execute a marketing campaign across channels with content creation and tracking.",
+  priority: "Low",
+  dueDate: "2024-12-31",
+  assignee: "Samy Lerton",
+});
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+const months = ["Jan", "Feb", "Mar", "Apr", "May"];
 </script>
 
 <style scoped>
@@ -156,7 +147,7 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May']
   background: #fff;
   border-radius: 20px;
   padding: 24px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
 .card-header {
@@ -257,4 +248,39 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May']
   background: #3b82f6;
   border-radius: 6px;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.header-left h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
 </style>
