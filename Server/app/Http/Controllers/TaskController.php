@@ -31,6 +31,16 @@ class TaskController extends Controller
     public function status()
     {
         $status = $this->service->status();
-        return response()->json(['status' => 'ok']);
+        return response()->json([$status]);
+    }
+
+    public function aiSummary(int $id)
+    {
+        $task = $this->service->generateAiSummary($id);
+
+        return response()->json([
+            'ai_summary' => $task->ai_summary,
+            'ai_priority' => $task->ai_priority,
+        ]);
     }
 }

@@ -8,7 +8,7 @@ class TaskRepository implements TaskRepositoryInterface
 {
     public function all(array $filters = [])
     {
-        return Task::query()
+        return Task::query()->with('user')
             ->when(isset($filters['status']), fn ($q) =>
                 $q->where('status', $filters['status']))
             ->paginate(10);

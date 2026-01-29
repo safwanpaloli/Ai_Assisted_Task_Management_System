@@ -27,4 +27,11 @@ class TaskService
     {
         return $this->repo->all();
     }
+
+    public function generateAiSummary(int $id)
+    {
+        $task = $this->repo->find($id);
+        $aiData = $this->aiService->generateSummary($task);
+        return $this->repo->update($id, $aiData);
+    }
 }
